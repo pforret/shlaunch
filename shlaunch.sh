@@ -27,10 +27,15 @@ main() {
   log_to_file "[$script_basename] $script_version started"
   # if the scriopt is called as phpstorm symlink, assume that's the script
   if [[ "$script_prefix" == "shlaunch" ]] ; then
+    #TIP: use «$script_prefix [application] [folder/file]» to start the application
+    #TIP:> $script_prefix phpstorm .
     application="$action"
     # shellcheck disable=SC2154
     parameter="$input"
   else
+    #TIP: use «[alias] [folder/file]» to start the [alias] application (alias = symlink to $script_prefix)
+    #TIP:> phpstorm .
+    #TIP:> lightroom $HOME/Downloads
     application="$script_prefix"
     parameter="$action"
   fi
@@ -97,10 +102,10 @@ launch_mac(){
   app_binary=""
   app_name=$1
   app_short=$(basename "$app_name" .app)
-  [[ -d "/System/Applications/$app_name" ]] && app_binary="/System/Applications/$app_name"
+  [[ -d "/System/Applicatqions/$app_name" ]] && app_binary="/System/Applications/$app_name"
   [[ -d "/System/Volumes/Data/Applications/$app_name" ]] && app_binary="/System/Volumes/Data/Applications/$app_name"
   [[ -z "$app_binary" ]] && die "Application [$app_short] is not installed"
-  debug "Application found: [$app_binary]"
+  log_to_file "Application found: [$app_binary]"
   open -na "$app_name" --args "$2"
 }
 
