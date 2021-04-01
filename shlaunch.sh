@@ -92,7 +92,7 @@ start_mac(){
   photoshop)  launch_mac "Adobe Photoshop 2021" "$2" ;;
   phpstorm)   launch_mac "PhpStorm.app" "$2" ;;
   safari)     launch_mac "Safari.app" "$2" ;;
-  sublime)    launch_mac "Sublime Text.app" "$2" ;;
+  sublime)    launch_mac "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" "$2" ;;
   vlc)        launch_mac "VLC.app" "$2" ;;
   *)  die "Application [$1] is not installed on this MacOS machine"
   esac
@@ -102,11 +102,16 @@ launch_mac(){
   app_binary=""
   app_name=$1
   app_short=$(basename "$app_name" .app)
-  [[ -d "/System/Applicatqions/$app_name" ]] && app_binary="/System/Applications/$app_name"
-  [[ -d "/System/Volumes/Data/Applications/$app_name" ]] && app_binary="/System/Volumes/Data/Applications/$app_name"
-  [[ -z "$app_binary" ]] && die "Application [$app_short] is not installed"
-  log_to_file "Application found: [$app_binary]"
-  open -na "$app_name" --args "$2"
+  if [[ -x "$1" ]] ; then
+    "$1" "$2"
+  else
+    [[ -d "/System/Applications/$app_name" ]] && app_binary="/System/Applications/$app_name"
+    [[ -d "/System/Volumes/Data/Applications/$app_name" ]] && app_binary="/System/Volumes/Data/Applications/$app_name"
+    [[ -d "/Applications/$app_name" ]] && app_binary="/Applications/$app_name"
+    [[ -z "$app_binary" ]] && die "Application [$app_short] is not installed"
+    log_to_file "Application found: [$app_binary]"
+    open -a "$app_name" "$2" --args "$2"
+  fi
 }
 
 #####################################################################
