@@ -1,12 +1,4 @@
 #!/usr/bin/env bash
-### ==============================================================================
-### SO HOW DO YOU PROCEED WITH YOUR SCRIPT?
-### 1. define the options/parameters and defaults you need in list_options()
-### 2. define dependencies on other programs/scripts in list_dependencies()
-### 3. implement the different actions in main() with helper functions
-### 4. implement helper functions you defined in previous step
-### ==============================================================================
-
 ### Created by Peter Forret ( pforret ) on 2021-04-01
 ### Based on https://github.com/pforret/bashew 1.15.2
 script_version="0.0.1" # if there is a VERSION.md in this script's folder, it will take priority for version number
@@ -15,25 +7,6 @@ readonly script_created="2021-04-01"
 readonly run_as_root=-1 # run_as_root: 0 = don't check anything / 1 = script MUST run as root / -1 = script MAY NOT run as root
 
 list_options() {
-  ### Change the next lines to reflect which flags/options/parameters you need
-  ### flag:   switch a flag 'on' / no value specified
-  ###     flag|<short>|<long>|<description>
-  ###     e.g. "-v" or "--verbose" for verbose output / default is always 'off'
-  ###     will be available as $<long> in the script e.g. $verbose
-  ### option: set an option / 1 value specified
-  ###     option|<short>|<long>|<description>|<default>
-  ###     e.g. "-e <extension>" or "--extension <extension>" for a file extension
-  ###     will be available a $<long> in the script e.g. $extension
-  ### list: add an list/array item / 1 value specified
-  ###     list|<short>|<long>|<description>| (default is ignored)
-  ###     e.g. "-u <user1> -u <user2>" or "--user <user1> --user <user2>"
-  ###     will be available a $<long> array in the script e.g. ${user[@]}
-  ### param:  comes after the options
-  ###     param|<type>|<long>|<description>
-  ###     <type> = 1 for single parameters - e.g. param|1|output expects 1 parameter <output>
-  ###     <type> = ? for optional parameters - e.g. param|1|output expects 1 parameter <output>
-  ###     <type> = n for list parameter    - e.g. param|n|inputs expects <input1> <input2> ... <input99>
-  ###     will be available as $<long> in the script after option/param parsing
   echo -n "
 #commented lines will be filtered
 flag|h|help|show usage
@@ -41,9 +14,8 @@ flag|q|quiet|no output
 flag|v|verbose|output more
 flag|f|force|do not ask for confirmation (always yes)
 option|l|log_dir|folder for log files |$HOME/log/$script_prefix
-option|t|tmp_dir|folder for temp files|.tmp
-param|1|action|action to perform: analyze/convert
-param|?|input|input file/text
+param|?|action|program to start: phpstorm/spotify/...
+param|?|input|parameters to start progra with
 " | grep -v '^#' | grep -v '^\s*$'
 }
 
@@ -53,24 +25,18 @@ param|?|input|input file/text
 
 main() {
   log_to_file "[$script_basename] $script_version started"
+  # if the scriopt is called as phpstorm symlink, assume that's the script
+  if [[ "$script_prefix" == "shlaunch" ]] ; then
+    application="$action"
+    # shellcheck disable=SC2154
+    parameter="$input"
+  else
+    application="$script_prefix"
+    parameter="$action"
+  fi
 
   action=$(lower_case "$action")
   case $action in
-  action1)
-    #TIP: use «$script_prefix action1» to ...
-    #TIP:> $script_prefix action1 input.txt
-    # shellcheck disable=SC2154
-    do_action1 "$input"
-    ;;
-
-  action2)
-    #TIP: use «$script_prefix action2» to ...
-    #TIP:> $script_prefix action2 input.txt output.pdf
-
-    # shellcheck disable=SC2154
-    do_action2 "$input" "$output"
-    ;;
-
   check|env)
     ## leave this default action, it will make it easier to test your script
     #TIP: use «$script_prefix check» to check if this script is ready to execute and what values the options/flags are
@@ -88,7 +54,7 @@ main() {
     ;;
 
   *)
-    die "action [$action] not recognized"
+    start_app "$application" "$parameter"
     ;;
   esac
   log_to_file "[$script_basename] ended after $SECONDS secs"
@@ -100,20 +66,43 @@ main() {
 ## Put your helper scripts here
 #####################################################################
 
-do_action1() {
-  log_to_file "action1 [$input]"
-  # Examples of required binaries/scripts and how to install them
-  # require_binary "convert" "imagemagick"
-  # require_binary "progressbar" "basher install pforret/progressbar"
-  # (code)
+start_app() {
+  log_to_file "start application [$1] [$2]"
+
+  case "$os_name" in
+    macOS)
+      start_mac "$1" "$2"
+      ;;
+    *)
+      die "OS [$os_name] not yet implemented"
+  esac
 }
 
-do_action2() {
-  log_to_file "action2 [$input]"
-  # (code)
-
+start_mac(){
+  case "$1" in
+  calc)       launch_mac "Calculator.app" "$2" ;;
+  chrome)     launch_mac "Google Chrome.app" "$2" ;;
+  keynote)    launch_mac "Keynote.app" "$2" ;;
+  lightroom)  launch_mac "Adobe Lightroom Classic" "$2" ;;
+  photoshop)  launch_mac "Adobe Photoshop 2021" "$2" ;;
+  phpstorm)   launch_mac "PhpStorm.app" "$2" ;;
+  safari)     launch_mac "Safari.app" "$2" ;;
+  sublime)    launch_mac "Sublime Text.app" "$2" ;;
+  vlc)        launch_mac "VLC.app" "$2" ;;
+  *)  die "Application [$1] is not installed on this MacOS machine"
+  esac
 }
 
+launch_mac(){
+  app_binary=""
+  app_name=$1
+  app_short=$(basename "$app_name" .app)
+  [[ -d "/System/Applications/$app_name" ]] && app_binary="/System/Applications/$app_name"
+  [[ -d "/System/Volumes/Data/Applications/$app_name" ]] && app_binary="/System/Volumes/Data/Applications/$app_name"
+  [[ -z "$app_binary" ]] && die "Application [$app_short] is not installed"
+  debug "Application found: [$app_binary]"
+  open -na "$app_name" --args "$2"
+}
 
 #####################################################################
 ################### DO NOT MODIFY BELOW THIS LINE ###################
