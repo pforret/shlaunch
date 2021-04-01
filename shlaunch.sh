@@ -12,7 +12,6 @@ list_options() {
 flag|h|help|show usage
 flag|q|quiet|no output
 flag|v|verbose|output more
-flag|f|force|do not ask for confirmation (always yes)
 option|l|log_dir|folder for log files |$HOME/log/$script_prefix
 param|?|action|program to start: phpstorm/spotify/...
 param|?|input|parameters to start progra with
@@ -117,12 +116,8 @@ launch_mac(){
 #####################################################################
 ################### DO NOT MODIFY BELOW THIS LINE ###################
 #####################################################################
-
-# set strict mode -  via http://redsymbol.net/articles/unofficial-bash-strict-mode/
-# removed -e because it made basic [[ testing ]] difficult
 set -uo pipefail
 IFS=$'\n\t'
-# shellcheck disable=SC2120
 hash() {
   length=${1:-6}
   if [[ -n $(command -v md5sum) ]]; then
