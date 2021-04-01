@@ -115,8 +115,7 @@ IFS=$'\n\t'
 # shellcheck disable=SC2120
 hash() {
   length=${1:-6}
-  # shellcheck disable=SC2230
-  if [[ -n $(which md5sum) ]]; then
+  if [[ -n $(command -v md5sum) ]]; then
     # regular linux
     md5sum | cut -c1-"$length"
   else
@@ -569,7 +568,7 @@ parse_options() {
 
 require_binary(){
   binary="$1"
-  path_binary=$(which "$binary" 2>/dev/null)
+  path_binary=$(command -v "$binary" 2>/dev/null)
   [[ -n "$path_binary" ]] && debug "️$require_icon required [$binary] -> $path_binary" && return 0
   #
   words=$(echo "${2:-}" | wc -l)
@@ -661,7 +660,7 @@ lookup_script_data() {
     install_package="brew install"
     ;;
   Linux | GNU*)
-    if [[ $(which lsb_release) ]]; then
+    if [[ $(command -v lsb_release) ]]; then
       # 'normal' Linux distributions
       os_name=$(lsb_release -i)    # Ubuntu
       os_version=$(lsb_release -r) # 20.04
