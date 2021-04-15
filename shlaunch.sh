@@ -53,7 +53,6 @@ main() {
   update)
     ## leave this default action, it will make it easier to test your script
     #TIP: use «$script_prefix update» to update to the latest version
-    #TIP:> $script_prefix check
     update_script_to_latest
     ;;
 

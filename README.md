@@ -15,31 +15,27 @@ Start applications like Lightroom/Sublime Text/Chrome from CLI
 ## 🔥 Usage
 
 ```
-Program: shlaunch 0.1.0 by peter@forret.com
-Updated: Apr  2 00:28:30 2021
+Program: shlaunch 0.1.1 by peter@forret.com
+Updated: Apr 15 23:53:55 2021
 Description: Run applications from CLI
-Usage: shlaunch [-h] [-q] [-v] [-f] [-l <log_dir>] <action?> <input?>
+Usage: shlaunch [-h] [-q] [-v] [-l <log_dir>] <action?> <input?>
 Flags, options and parameters:
--h|--help        : [flag] show usage [default: off]
--q|--quiet       : [flag] no output [default: off]
--v|--verbose     : [flag] output more [default: off]
--f|--force       : [flag] do not ask for confirmation (always yes) [default: off]
--l|--log_dir <?> : [option] folder for log files   [default: /Users/pforret/log/shlaunch]
-<action>         : [parameter] program to start: phpstorm/spotify/... (optional)
-<input>          : [parameter] parameters to start progra with (optional)
-@github.com:pforret/shlaunch.git
+    -h|--help        : [flag] show usage [default: off]
+    -q|--quiet       : [flag] no output [default: off]
+    -v|--verbose     : [flag] output more [default: off]
+    -l|--log_dir <?> : [option] folder for log files   [default: /Users/pforret/log/shlaunch]
+    <action>         : [parameter] program to start: phpstorm/spotify/... (optional)
+    <input>          : [parameter] parameters to start program with (optional) 
+    
 ### TIPS & EXAMPLES
-* use shlaunch [application] [folder/file] to start the application
+* use 'shlaunch [alias] [folder/file]' to start the application
   shlaunch phpstorm .
-* use [alias] [folder/file] to start the [alias] application (alias = symlink to shlaunch)
+* use '[alias] [folder/file]' to start the [alias] application (alias = symlink to shlaunch)
   phpstorm .
   lightroom $HOME/Downloads
-* use shlaunch check to check if this script is ready to execute and what values the options/flags are
-  shlaunch check
-* use shlaunch env to generate an example .env file
-  shlaunch env > .env
-* use shlaunch update to update to the latest version
-  shlaunch check
+* use 'shlaunch check' to check if this script is ready to execute and what values the options/flags are
+* use 'shlaunch env' to generate an example .env file
+* use 'shlaunch update' to update to the latest version
 ```
 
 ## Aliases supported
