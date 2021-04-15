@@ -8,6 +8,8 @@
 
 # shlaunch
 
+![](assets/launch.jpg)
+
 Start applications like Lightroom/Sublime Text/Chrome from CLI
 
 ## 🔥 Usage
