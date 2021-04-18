@@ -40,15 +40,27 @@ Flags, options and parameters:
   shlaunch check
 ```
 
-## Aliases supported
+## Applications supported
 
-* chrome
-* filezilla
-* lightroom
-* photoshop
-* phpstorm
-* safari
-* sublime
+|   application                                                                 | alias       | MacOS | Ubuntu | Fedora | 
+|-------------------------------------------------------------------------------|-------------|-------|--------|--------|
+|  [Adobe Lightroom](https://www.adobe.com/products/photoshop-lightroom.html)   | _lightroom_ |   ✅  |   -    |    -   |  
+|  [Adobe Photoshop](https://www.adobe.com/products/photoshop.html)             | _photoshop_ |   ✅  |   -    |    -   |  
+|  [Apple Safari](https://www.apple.com/safari/)                                | _safari_    |   ✅  |   -    |    -   |  
+|  [Filezilla](https://filezilla-project.org/)                                  | _filezilla_ |   ✅  |   -    |    -   |  
+|  [Google Chrome](https://www.google.com/chrome/)                              | _chrome_    |   ✅  |   -    |    -   |  
+|  [Jetbrains PhpStorm](https://www.jetbrains.com/phpstorm/)                    | _phpstorm_  |   ✅  |   -    |    -   |  
+|  [Sublime Text](https://www.sublimetext.com/)                                 | _sublime_   |   ✅  |   -    |    -   |  
+
+## ⌨️ Examples
+
+```bash
+> phpstorm .
+# start PhpStorm with current folder as project
+
+> safari www.google.com 
+# open Safari with Google website
+```
 
 ## 🚀 Installation
 
