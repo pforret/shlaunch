@@ -12,9 +12,9 @@ list_options() {
 flag|h|help|show usage
 flag|q|quiet|no output
 flag|v|verbose|output more
-option|l|log_dir|folder for log files |$HOME/log/$script_prefix
+option|l|log_dir|folder for log files |$HOME/log/shlaunch
 param|?|action|program to start: phpstorm/spotify/...
-param|?|input|parameters to start progra with
+param|?|input|parameters to start program with
 " | grep -v '^#' | grep -v '^\s*$'
 }
 
@@ -24,7 +24,7 @@ param|?|input|parameters to start progra with
 
 main() {
   log_to_file "[$script_basename] $script_version started"
-  # if the scriopt is called as phpstorm symlink, assume that's the script
+  # if the script is called as phpstorm symlink, assume that's the script
   if [[ "$script_prefix" == "shlaunch" ]] ; then
     #TIP: use «$script_prefix [application] [folder/file]» to start the application
     #TIP:> $script_prefix phpstorm .
@@ -53,7 +53,6 @@ main() {
   update)
     ## leave this default action, it will make it easier to test your script
     #TIP: use «$script_prefix update» to update to the latest version
-    #TIP:> $script_prefix check
     update_script_to_latest
     ;;
 
@@ -86,6 +85,7 @@ start_mac(){
   case "$1" in
   calc)       launch_mac "Calculator.app" "$2" ;;
   chrome)     launch_mac "Google Chrome.app" "$2" ;;
+  firefox)    launch_mac "Firefox.app" "$2" ;;
   keynote)    launch_mac "Keynote.app" "$2" ;;
   lightroom)  launch_mac "Adobe Lightroom Classic" "$2" ;;
   photoshop)  launch_mac "Adobe Photoshop 2021" "$2" ;;
