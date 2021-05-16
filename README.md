@@ -15,8 +15,8 @@ Start applications like Lightroom/Sublime Text/Chrome from CLI
 ## 🔥 Usage
 
 ```
-Program: shlaunch 0.1.1 by peter@forret.com
-Updated: Apr 15 23:53:55 2021
+Program: shlaunch 0.1.3 by peter@forret.com
+Updated: Apr 18 09:32:42 2021
 Description: Run applications from CLI
 Usage: shlaunch [-h] [-q] [-v] [-l <log_dir>] <action?> <input?>
 Flags, options and parameters:
@@ -25,19 +25,24 @@ Flags, options and parameters:
     -v|--verbose     : [flag] output more [default: off]
     -l|--log_dir <?> : [option] folder for log files   [default: /Users/pforret/log/shlaunch]
     <action>         : [parameter] program to start: phpstorm/spotify/... (optional)
-    <input>          : [parameter] parameters to start program with (optional) 
-    
+    <input>          : [parameter] parameters to start program with (optional)
+                                                     
 ### TIPS & EXAMPLES
-* use 'shlaunch [alias] [folder/file]' to start the application
+* use shlaunch [application] [folder/file] to start the application
   shlaunch phpstorm .
-* use '[alias] [folder/file]' to start the [alias] application (alias = symlink to shlaunch)
+* use [alias] [folder/file] to start the [alias] application (alias = symlink to shlaunch)
   phpstorm .
-  lightroom $HOME/Downloads
-* use 'shlaunch check' to check if this script is ready to execute and what values the options/flags are
-* use 'shlaunch env' to generate an example .env file
-* use 'shlaunch update' to update to the latest version
+  lightroom Photos/IMG1243547.dng
+* use shlaunch check to check if this script is ready to execute and what values the options/flags are
+  shlaunch check
+* use shlaunch env to generate an example .env file
+  shlaunch env > .env
+* use shlaunch update to update to the latest version
 ```
 
+There are aliases (symbolic links) that facilitate usage. 
+E.g. `firefox www.google.com` is equivalent to `shlaunch firefox www.google.com`, 
+because of the pre-existing symbolic link `ln -s shlaunch.sh firefox`.
 
 ## Applications supported
 
@@ -77,4 +82,4 @@ or with `git`
 
 * script created with [bashew](https://github.com/pforret/bashew)
 
-&copy; 2021 Peter Forret
+&copy; 2021 [Peter Forret](https://github.com/pforret)
