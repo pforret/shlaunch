@@ -38,6 +38,7 @@ Flags, options and parameters:
 * use 'shlaunch update' to update to the latest version
 ```
 
+
 ## Applications supported
 
 |   application                                                                 | alias       | MacOS | Ubuntu | Fedora | 
@@ -46,6 +47,7 @@ Flags, options and parameters:
 |  [Adobe Photoshop](https://www.adobe.com/products/photoshop.html)             | _photoshop_ |   ✅  |   -    |    -   |  
 |  [Apple Safari](https://www.apple.com/safari/)                                | _safari_    |   ✅  |   -    |    -   |  
 |  [Filezilla](https://filezilla-project.org/)                                  | _filezilla_ |   ✅  |   -    |    -   |  
+|  [Mozilla Firefox](https://www.mozilla.org/firefox/)                          | _firefox_   |   ✅  |   -    |    -   |  
 |  [Google Chrome](https://www.google.com/chrome/)                              | _chrome_    |   ✅  |   -    |    -   |  
 |  [Jetbrains PhpStorm](https://www.jetbrains.com/phpstorm/)                    | _phpstorm_  |   ✅  |   -    |    -   |  
 |  [Sublime Text](https://www.sublimetext.com/)                                 | _sublime_   |   ✅  |   -    |    -   |  
